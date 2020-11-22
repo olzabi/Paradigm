@@ -1,0 +1,45 @@
+"""
+9 вариант, согласно с номером по списку.
+Атрибуты: название книги, год выдачи
+
+Метод 1: Вычислить сколько лет книге
+Метод 2: Вычислить сколько дней прошло с момента ГОДА выдачи книги
+"""
+from datetime import date
+import datetime
+
+
+class Library:
+    def __init__(self, name, release_date):
+        self.release_date = release_date
+        self.book_name = name
+
+    def method1(self):
+        release_date = self.release_date.split('-')
+
+        release_date = datetime.date(int(release_date[0]), int(release_date[1]), int(release_date[2]))
+        now = datetime.date.today()
+        result = now - release_date
+
+        return print('The book was released {0} days ago '.format(result.days))
+
+    #
+    def method2(self):
+        release_date = self.release_date.split('-')
+
+        release_date = datetime.date(int(release_date[0]), int(release_date[1]), int(release_date[2])).year
+        now = datetime.date.today().year
+
+        result = now - release_date
+
+        return print('The book was released {0} years ago '.format(result))
+
+    def description(self):
+        return print('The book: {} \nFirst release date: {}'.format(self.release_date, self.book_name))
+
+
+given_book = Library('John Doe', '2008-11-9')
+given_book.description()
+
+given_book.method1()
+given_book.method2()
