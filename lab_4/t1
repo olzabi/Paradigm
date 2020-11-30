@@ -1,0 +1,78 @@
+class Rational:
+    #  конструктор класса
+    def __init__(self, numerator=1, divider=1):
+        self.numerator = numerator
+        self.divider = divider
+
+    # НОД
+    def gcd(self):
+        a = self.numerator
+        b = self.divider
+
+        while a != 0 and b != 0:
+            if a > b:
+                a = a % b
+            else:
+                b = b % a
+        return max(a, b)
+
+    # дробная часть, сокращённая форма.
+    def fraction(self):
+
+        a = self.numerator
+        b = self.divider
+
+        c = self.gcd()
+        a = a // c
+        b = b // c
+
+        return '{0}/{1}'.format(a, b)
+
+    #  дробная часть в формате плавающей точкой
+    def dec_fraction(self, divider=1):
+        a = self.numerator
+        b = self.divider
+
+        a = a / divider
+        b = b / divider
+        return str(a / b)
+
+    #  тест-часть на выводе
+    def output(self, chosen=3):
+        if chosen == 0:
+            quit()
+        elif chosen == 1:
+            print("Your choice: {}".format(chosen))
+            print("Fraction is: {}".format(self.fraction()))
+            input("Press ENTER to close.")
+        elif chosen == 2:
+            print("Your choice: {}".format(chosen))
+            print("Fraction in float is: {}".format(self.dec_fraction()))
+            input("Press ENTER to close.")
+        else:
+            print("Your choice: {}".format(chosen))
+            print("Fraction is: {}".format(self.fraction()))
+            print("fraction in float is: {}".format(self.dec_fraction()))
+            input("Press ENTER to close.")
+
+
+#  I/O
+print(''' 
+        This application will help you to simplify a fraction in two ways: 
+        1. fraction-type in format a/b, where a - numerator, b - divider.
+        2. float-type.
+        
+        If you are interested in it,
+        --Input your numbers,
+        --Choose the way you want to output result: 
+        1. Fraction.
+        2. Fraction in float.
+        3. In both ways.
+        ''')
+
+num1 = int(input("numerator: "))
+num2 = int(input("divider: "))
+choice = int(input("Your choice: "))
+obj1 = Rational(num1, num2)
+obj1.output(choice)
+
