@@ -1,29 +1,39 @@
 class Rational:
-    '''
-     try :
-        return eval("{} {} {}".format(num1, operation, num2))
-    except (ZeroDivisionError, SyntaxError):
-        return None
-    '''
 
     #  конструктор класса
     def __init__(self, num1=1, num2=1):
-        if not isinstance(num1 and num2, (float, int)):
-            raise TypeError('404')
+        if not isinstance(num1 or num2, (float, int)):
+            raise TypeError('Error: value is incorrect')
+        if num1 <= 0 or num2 <= 0:
+            raise ValueError('Error: first value or second value is negative or zero.')
 
-        if num1 < 0 or num2 < 0:
-            raise ValueError('Is negative :S')
+        self.__num1 = num1
+        self.__num2 = num2
+
+    @property
+    def num1(self):
+        return self.num1
+
+    @property
+    def num2(self):
+        return self.num2
+
+    @num1.setter
+    def num1(self, value):
+        if not isinstance(value, (int, float)):
+            raise TypeError('Error: value is incorrect')
+
+    @num2.setter
+    def num2(self, value):
+        if not isinstance(value, (int, float)):
+            raise TypeError('Error: value is incorrect')
 
     # output constructor
     def __str__(self):
-        return '({} {})'.format(self.num1, self.num2)
+        return '({}, {})'.format(self.num1, self.num2)
 
     #  +
     def __add__(self):
-        try:
-            self.num1, self.num2 = int(self.num1), int(self.num2)
-        except ValueError:
-            self.num1, self.num2 = float(self.num1), float(self.num2)
 
         if self.num1 + self.num2:
             return self.__class__(self.num1.__add__(self.num2))
@@ -31,10 +41,6 @@ class Rational:
 
     # *
     def __mul__(self):
-        try:
-            self.num1, self.num2 = int(self.num1), int(self.num2)
-        except ValueError:
-            self.num1, self.num2 = float(self.num1), float(self.num2)
 
         if self.num1 * self.num2:
             return self.__class__(self.num1.__mul__(self.num2))
@@ -42,10 +48,6 @@ class Rational:
 
     # -
     def __sub__(self):
-        try:
-            self.num1, self.num2 = int(self.num1), int(self.num2)
-        except ValueError:
-            self.num1, self.num2 = float(self.num1), float(self.num2)
 
         if self.num1 - self.num2:
             return self.__class__(self.num1.__sub__(self.num2))
@@ -53,10 +55,6 @@ class Rational:
 
     # /
     def __truediv__(self):
-        try:
-            self.num1, self.num2 = int(self.num1), int(self.num2)
-        except ValueError:
-            self.num1, self.num2 = float(self.num1), float(self.num2)
 
         if self.num1 / self.num2:
             return self.__class__(self.num1.__truediv__(self.num2))
@@ -98,9 +96,7 @@ class Rational:
 
 def main():
 
-    print('''
-        ....
-    ''')
+    # print('''''')
 
     while 1:
         inp1 = input("inp1 ")
@@ -109,17 +105,8 @@ def main():
 
         inp2 = input("inp2 ")
 
-        try:
-            inp1 = int(inp1)
-            inp2 = int(inp2)
-        except ValueError:
-            inp1 = float(inp1)
-            inp2 = float(inp2)
-
         obj1 = Rational(inp1, inp2)
         print(inp1 / inp2)
-
-
 
 
 if __name__ == '__main__':
