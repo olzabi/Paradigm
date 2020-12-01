@@ -1,13 +1,71 @@
 class Rational:
+    '''
+     try :
+        return eval("{} {} {}".format(num1, operation, num2))
+    except (ZeroDivisionError, SyntaxError):
+        return None
+    '''
+
     #  конструктор класса
-    def __init__(self, numerator=1, divider=1):
-        self.numerator = numerator
-        self.divider = divider
+    def __init__(self, num1=1, num2=1):
+        if not isinstance(num1 and num2, (float, int)):
+            raise TypeError('404')
+
+        if num1 < 0 or num2 < 0:
+            raise ValueError('Is negative :S')
+
+    # output constructor
+    def __str__(self):
+        return '({} {})'.format(self.num1, self.num2)
+
+    #  +
+    def __add__(self):
+        try:
+            self.num1, self.num2 = int(self.num1), int(self.num2)
+        except ValueError:
+            self.num1, self.num2 = float(self.num1), float(self.num2)
+
+        if self.num1 + self.num2:
+            return self.__class__(self.num1.__add__(self.num2))
+        return None
+
+    # *
+    def __mul__(self):
+        try:
+            self.num1, self.num2 = int(self.num1), int(self.num2)
+        except ValueError:
+            self.num1, self.num2 = float(self.num1), float(self.num2)
+
+        if self.num1 * self.num2:
+            return self.__class__(self.num1.__mul__(self.num2))
+        return None
+
+    # -
+    def __sub__(self):
+        try:
+            self.num1, self.num2 = int(self.num1), int(self.num2)
+        except ValueError:
+            self.num1, self.num2 = float(self.num1), float(self.num2)
+
+        if self.num1 - self.num2:
+            return self.__class__(self.num1.__sub__(self.num2))
+        return None
+
+    # /
+    def __truediv__(self):
+        try:
+            self.num1, self.num2 = int(self.num1), int(self.num2)
+        except ValueError:
+            self.num1, self.num2 = float(self.num1), float(self.num2)
+
+        if self.num1 / self.num2:
+            return self.__class__(self.num1.__truediv__(self.num2))
+        return None
 
     # НОД
     def gcd(self):
-        a = self.numerator
-        b = self.divider
+        a = self.num1
+        b = self.num2
 
         while a != 0 and b != 0:
             if a > b:
@@ -19,8 +77,8 @@ class Rational:
     # дробная часть, сокращённая форма.
     def fraction(self):
 
-        a = self.numerator
-        b = self.divider
+        a = self.num1
+        b = self.num2
 
         c = self.gcd()
         a = a // c
@@ -30,49 +88,40 @@ class Rational:
 
     #  дробная часть в формате плавающей точкой
     def dec_fraction(self, divider=1):
-        a = self.numerator
-        b = self.divider
+        a = self.num1
+        b = self.num2
 
         a = a / divider
         b = b / divider
         return str(a / b)
 
-    #  тест-часть на выводе
-    def output(self, chosen=3):
-        if chosen == 0:
-            quit()
-        elif chosen == 1:
-            print("Your choice: {}".format(chosen))
-            print("Fraction is: {}".format(self.fraction()))
-            input("Press ENTER to close.")
-        elif chosen == 2:
-            print("Your choice: {}".format(chosen))
-            print("Fraction in float is: {}".format(self.dec_fraction()))
-            input("Press ENTER to close.")
-        else:
-            print("Your choice: {}".format(chosen))
-            print("Fraction is: {}".format(self.fraction()))
-            print("fraction in float is: {}".format(self.dec_fraction()))
-            input("Press ENTER to close.")
+
+def main():
+
+    print('''
+        ....
+    ''')
+
+    while 1:
+        inp1 = input("inp1 ")
+        if inp1 == 'exit':
+            break
+
+        inp2 = input("inp2 ")
+
+        try:
+            inp1 = int(inp1)
+            inp2 = int(inp2)
+        except ValueError:
+            inp1 = float(inp1)
+            inp2 = float(inp2)
+
+        obj1 = Rational(inp1, inp2)
+        print(inp1 / inp2)
 
 
-#  I/O
-print(''' 
-        This application will help you to simplify a fraction in two ways: 
-        1. fraction-type in format a/b, where a - numerator, b - divider.
-        2. float-type.
-        
-        If you are interested in it,
-        --Input your numbers,
-        --Choose the way you want to output result: 
-        1. Fraction.
-        2. Fraction in float.
-        3. In both ways.
-        ''')
 
-num1 = int(input("numerator: "))
-num2 = int(input("divider: "))
-choice = int(input("Your choice: "))
-obj1 = Rational(num1, num2)
-obj1.output(choice)
+
+if __name__ == '__main__':
+    main()
 
