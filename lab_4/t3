@@ -14,6 +14,9 @@ class Library:
         self.release_date = release_date
         self.book_name = name
 
+    def __str__(self):
+        return 'The book: {} \nFirst release date: {}'.format(self.release_date, self.book_name)
+
     def method1(self):
         release_date = self.release_date.split('-')
 
@@ -34,12 +37,8 @@ class Library:
 
         return print('The book was released {0} years ago '.format(result))
 
-    def description(self):
-        return print('The book: {} \nFirst release date: {}'.format(self.release_date, self.book_name))
-
 
 given_book = Library('John Doe', '2008-11-9')
-given_book.description()
-
+print(given_book)
 given_book.method1()
 given_book.method2()
