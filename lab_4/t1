@@ -8,30 +8,32 @@ class Rational:
         if num1 <= 0 or num2 <= 0:
             raise ValueError('Error: first value or second value is negative or zero.')
 
-        self.num1 = num1
-        self.num2 = num2
+        self.__num1 = num1
+        self.__num2 = num2
 
     @property
     def num_1(self):
-        return self.num1
+        return self.__num1
 
     @property
     def num_2(self):
-        return self.num2
+        return self.__num2
 
     @num_1.setter
     def num_1(self, value):
         if not isinstance(value, (int, float)):
             raise TypeError('Error: value is incorrect')
+        self.__num1 = value
 
     @num_2.setter
     def num_2(self, value):
         if not isinstance(value, (int, float)):
             raise TypeError('Error: value is incorrect')
+        self.__num2 = value
 
     def gcd(self):
-        a = self.num1
-        b = self.num2
+        a = self.__num1
+        b = self.__num2
 
         while a != 0 and b != 0:
             if a > b:
@@ -42,55 +44,72 @@ class Rational:
 
     # output constructor
     def __str__(self):
-        return '({}/{})'.format(self.num1, self.num2)
+        return '{}/{}'.format(self.__num1, self.__num2)
 
     #  +
     def __add__(self, other):
-        return Rational(self.num1 + other.num1, self.gcd())
+        return Rational(self.__num1 + other.__num1, self.__num2 + other.__num2)
 
     # *
     def __mul__(self, other):
-        return Rational(self.num1 * other.num1, self.num2 * other.num2)
+        return Rational(self.__num1 * other.n__um1, self.__num2 * other.__num2)
 
     # -
     def __sub__(self, other):
-        return Rational(self.num1 - other.num1, self.num2 - other.num2)
+        return Rational(self.__num1 - other.__num1, self.__num2 - other.__num2)
 
     # /
     def __truediv__(self, other):
-        return Rational(self.num1 / other.num1, self.num2 / other.num2)
+        return Rational(self.__num1 / other.__num1, self.__num2 / other.__num2)
 
     # дробная часть, сокращённая форма.
     def fraction(self):
-
-        a = self.num1
-        b = self.num2
+        a = self.__num1
+        b = self.__num2
 
         c = self.gcd()
         a = a // c
         b = b // c
 
-        return '{0}/{1}'.format(a, b)
+        return 'Simplified fraction is {0}/{1}'.format(a, b)
 
     #  дробная часть в формате плавающей точкой
-    def dec_fraction(self, divider=1):
-        a = self.num1
-        b = self.num2
+    def fraction_in_decimal(self, divider=1):
+        a = self.__num1
+        b = self.__num2
 
         a = a / divider
         b = b / divider
         return str(a / b)
 
 
+def calculate(*args):
+    try:
+        return eval(''.join(map(str, args)))
+    except TypeError:
+        return None
+
+
 def main():
-    # print('''''')
+    q = False
+    while not q:
+        inp1 = float(input("obj1, x -> "))
+        inp2 = float(input("obj1, y -> "))
+        inp3 = float(input("obj2, x -> "))
+        inp4 = float(input("obj2, y -> "))
 
-    #   inp1 = input("inp1 ")
-    #   inp2 = input("inp2 ")
-    obj1 = Rational(70, 40)
-    obj2 = Rational(20, 20)
+        obj1 = Rational(inp1, inp2)
+        obj2 = Rational(inp3, inp4)
 
-    print(obj1 + obj2)
+        obj1.fraction_in_decimal()
+        obj2.fraction_in_decimal()
+
+        print(calculate(obj1 + obj2))
+        x = input('Press <Enter> to try again or write anything to exit...')
+        if len(x) < 1:
+            continue
+        else:
+            break
 
 
 if __name__ == '__main__':
