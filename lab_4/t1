@@ -52,7 +52,7 @@ class Rational:
 
     # *
     def __mul__(self, other):
-        return Rational(self.__num1 * other.n__um1, self.__num2 * other.__num2)
+        return Rational(self.__num1 * other.__num1, self.__num2 * other.__num2)
 
     # -
     def __sub__(self, other):
