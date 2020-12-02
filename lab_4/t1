@@ -4,63 +4,31 @@ class Rational:
     def __init__(self, num1=1, num2=1):
         if not isinstance(num1 or num2, (float, int)):
             raise TypeError('Error: value is incorrect')
+
         if num1 <= 0 or num2 <= 0:
             raise ValueError('Error: first value or second value is negative or zero.')
 
-        self.__num1 = num1
-        self.__num2 = num2
+        self.num1 = num1
+        self.num2 = num2
 
     @property
-    def num1(self):
+    def num_1(self):
         return self.num1
 
     @property
-    def num2(self):
+    def num_2(self):
         return self.num2
 
-    @num1.setter
-    def num1(self, value):
+    @num_1.setter
+    def num_1(self, value):
         if not isinstance(value, (int, float)):
             raise TypeError('Error: value is incorrect')
 
-    @num2.setter
-    def num2(self, value):
+    @num_2.setter
+    def num_2(self, value):
         if not isinstance(value, (int, float)):
             raise TypeError('Error: value is incorrect')
 
-    # output constructor
-    def __str__(self):
-        return '({}, {})'.format(self.num1, self.num2)
-
-    #  +
-    def __add__(self):
-
-        if self.num1 + self.num2:
-            return self.__class__(self.num1.__add__(self.num2))
-        return None
-
-    # *
-    def __mul__(self):
-
-        if self.num1 * self.num2:
-            return self.__class__(self.num1.__mul__(self.num2))
-        return None
-
-    # -
-    def __sub__(self):
-
-        if self.num1 - self.num2:
-            return self.__class__(self.num1.__sub__(self.num2))
-        return None
-
-    # /
-    def __truediv__(self):
-
-        if self.num1 / self.num2:
-            return self.__class__(self.num1.__truediv__(self.num2))
-        return None
-
-    # НОД
     def gcd(self):
         a = self.num1
         b = self.num2
@@ -71,6 +39,26 @@ class Rational:
             else:
                 b = b % a
         return max(a, b)
+
+    # output constructor
+    def __str__(self):
+        return '({}/{})'.format(self.num1, self.num2)
+
+    #  +
+    def __add__(self, other):
+        return Rational(self.num1 + other.num1, self.gcd())
+
+    # *
+    def __mul__(self, other):
+        return Rational(self.num1 * other.num1, self.num2 * other.num2)
+
+    # -
+    def __sub__(self, other):
+        return Rational(self.num1 - other.num1, self.num2 - other.num2)
+
+    # /
+    def __truediv__(self, other):
+        return Rational(self.num1 / other.num1, self.num2 / other.num2)
 
     # дробная часть, сокращённая форма.
     def fraction(self):
@@ -95,20 +83,15 @@ class Rational:
 
 
 def main():
-
     # print('''''')
 
-    while 1:
-        inp1 = input("inp1 ")
-        if inp1 == 'exit':
-            break
+    #   inp1 = input("inp1 ")
+    #   inp2 = input("inp2 ")
+    obj1 = Rational(70, 40)
+    obj2 = Rational(20, 20)
 
-        inp2 = input("inp2 ")
-
-        obj1 = Rational(inp1, inp2)
-        print(inp1 / inp2)
+    print(obj1 + obj2)
 
 
 if __name__ == '__main__':
     main()
-
