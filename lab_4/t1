@@ -97,14 +97,14 @@ def main():
         inp2 = float(input("obj1, y -> "))
         inp3 = float(input("obj2, x -> "))
         inp4 = float(input("obj2, y -> "))
+        ope = input("Give us a sign?")
 
         obj1 = Rational(inp1, inp2)
         obj2 = Rational(inp3, inp4)
 
-        obj1.fraction_in_decimal()
-        obj2.fraction_in_decimal()
-
-        print(calculate(obj1 + obj2))
+        #  count result = inp1/inp2 + inp3/inp4
+        #
+        print(calculate(obj1, ope, obj2))
         x = input('Press <Enter> to try again or write anything to exit...')
         if len(x) < 1:
             continue
