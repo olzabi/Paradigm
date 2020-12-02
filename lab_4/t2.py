@@ -78,8 +78,8 @@ def main():
         else:
             print('Sorry, it is hard to understand people, try again...')
 
-        x = input('Press <Enter> to try again or write something...')
-        if len(x) <= 1:
+        x = input('Press <Enter> to try again or just enter something...')
+        if len(x) < 1:
             continue
         else:
             break
