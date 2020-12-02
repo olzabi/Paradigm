@@ -1,15 +1,39 @@
 class Rectangle:
 
-    #  constructor -> height=1, width=3
-    def __init__(self, height=1, width=3):
-        self.height = height
-        self.width = width
+    #  constructor -> height=2, width=3
+    def __init__(self, height=2, width=3):
+        if not isinstance(height and width, (int, float)):
+            raise TypeError('Error: value is incorrect')
+        self.__height = height
+        self.__width = width
+
+    def __str__(self):
+        return 'Rectangle info: w: {0}, h: {1}'.format(self.__width, self.__height)
+
+    @property
+    def _height(self):
+        return self.__height
+
+    @_height.setter
+    def _height(self, value):
+        if not isinstance(value, (int, float)):
+            raise TypeError('Error: value is incorrect')
+        self.__height = value
+
+    @property
+    def _width(self):
+        return self.__width
+
+    @_width.setter
+    def _width(self, value):
+        if not isinstance(value, (int, float)):
+            raise TypeError('Error: value is incorrect')
+        self.__width = value
 
     #  PERIMETER w/ condition >100
-    def perimeter_finder(self):
-
-        a = self.width
-        b = self.height
+    def get_perimeter(self):
+        a = self.__width
+        b = self.__height
 
         # formula --> P = (a + b) * 2 or P = a * 4, if a = b
         if(a <= 100) and (b <= 100):
@@ -22,54 +46,44 @@ class Rectangle:
             return "Selected input numbers do not satisfy app's condition. Retry again next time."
 
     #  S = a * b or a * a if a = b
-    def square_finder(self):
+    def get_square(self):
 
-        a = self.height
-        b = self.width
+        a = self.__height
+        b = self.__width
 
         if (a <= 100) and (b <= 100):
-            if a == b:
-                s = a * a
-            else:
-                s = a * b
-            return s
+            return a * b
         else:
             return "Selected input numbers do not satisfy app's condition. Retry again next time."
 
-    def output(self, chosen=3):
-        if chosen == 0:
-            quit()
-        elif chosen == 1:
-            print("Your choice: {}".format(chosen))
-            print("The perimeter of rectangle is: {}".format(self.perimeter_finder()))
-            input("Press ENTER to close.")
-        elif chosen == 2:
-            print("Your choice: {}".format(chosen))
-            print("The square of rectangle is: {}".format(self.square_finder()))
-            input("Press ENTER to close.")
+
+def main():
+    q = False
+    while not q:
+        num1 = int(input("height: "))
+        num2 = int(input("width: "))
+
+        obj1 = Rectangle(num1, num2)
+        print(obj1)
+
+        choose = input('write -> find perimeter. Or write -> find square Or -> both ')
+
+        if choose == 'find perimeter':
+            print('Perimeter: ', obj1.get_perimeter())
+        elif choose == 'find square':
+            print('Square: ', obj1.get_square())
+        elif choose == 'both':
+            print('The perimeter is: ', obj1.get_perimeter())
+            print('The square is: ', obj1.get_square())
         else:
-            print("Your choice: {}".format(chosen))
-            print("The perimeter of rectangle is: {}".format(self.perimeter_finder()))
-            print("The square is: {}".format(self.square_finder()))
-            input("Press ENTER to close.")
+            print('Sorry, it is hard to understand people, try again...')
+
+        x = input('Press <Enter> to try again or write something...')
+        if len(x) <= 1:
+            continue
+        else:
+            break
 
 
-print(''' 
-        This application will help you to find: 
-        1. rectangle perimeter
-        2. rectangle square.
-
-        If you are interested in it,
-        --Input your numbers,
-        --Choose the way you want to output result:
-        0. Press 0 to quit. 
-        1. Press 1 if you need to find rectangle perimeter.
-        2. Press 2 if you need to find rectangle square.
-        3. Press 3 if you need to find in both ways.
-        ''')
-
-num1 = int(input("height: "))
-num2 = int(input("width: "))
-choice = int(input("Your choice: "))
-obj1 = Rectangle(num1, num2)
-obj1.output(choice)
+if __name__ == '__main__':
+    main()
