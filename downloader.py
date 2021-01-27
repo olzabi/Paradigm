@@ -1,3 +1,0 @@
-import threading
-
-class Downloader()
